@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class EncodeThreeStrings {
+
+  public static String encode(String input1, String input2, String input3) {
+    int totalLength = input1.length() + input2.length() + input3.length();
+    int partLength = totalLength / 3;
+
+    StringBuilder output1 = new StringBuilder();
+    StringBuilder output2 = new StringBuilder();
+    StringBuilder output3 = new StringBuilder();
+
+    int index = 0;
+    for (int i = 0; i < 3; i++) {
+      output1.append(input1.substring(index, Math.min(index + partLength, input1.length())));
+      output2.append(input2.substring(index, Math.min(index + partLength, input2.length())));
+      output3.append(input3.substring(index, Math.min(index + partLength, input3.length())));
+      index += partLength;
+    }
+
+    output3.reverse(); // Toggle case for output3
+    for (int i = 0; i < output3.length(); i++) {
+      output3.setCharAt(i, Character.isUpperCase(output3.charAt(i)) ? Character.toLowerCase(output3.charAt(i)) : Character.toUpperCase(output3.charAt(i)));
+    }
+
+    return output1.toString() + "#" + output2.toString() + "#" + output3.toString();
+  }
+
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Enter first string: ");
+    String input1 = scanner.nextLine();
+
+    System.out.print("Enter second string: ");
+    String input2 = scanner.nextLine();
+
+    System.out.print("Enter third string: ");
+    String input3 = scanner.nextLine();
+
+    String result = encode(input1, input2, input3);
+    String[] outputs = result.split("#");
+
+    System.out.println("Output1: " + outputs[0]);
+    System.out.println("Output2: " + outputs[1]);
+    System.out.println("Output3: " + outputs[2]);
+  }
+}

@@ -1,0 +1,47 @@
+import java.util.*;
+public class FormulaFixer {
+    public static int fixTheFormula(String input) {
+        String numbers = input.replaceAll("[^0-9]", "");
+        String operators = input.replaceAll("[^+-/*]", "");
+
+        if (numbers.length() != operators.length() + 1) {
+            throw new IllegalArgumentException("Invalid input: number of numbers should be one more than number of operators");
+        }
+
+        int[] nums = new int[numbers.length()];
+        for (int i = 0; i < numbers.length(); i++) {
+            nums[i] = Character.getNumericValue(numbers.charAt(i));
+        }
+
+        int result = nums[0];
+        for (int i = 0; i < operators.length(); i++) {
+            char op = operators.charAt(i);
+            int num = nums[i + 1];
+            switch (op) {
+                case '+':
+                    result += num;
+                    break;
+                case '-':
+                    result -= num;
+                    break;
+                case '*':
+                    result *= num;
+                    break;
+                case '/':
+                    result /= num;
+                    break;
+            }
+        }
+
+        return result;
+    }
+    
+     public static void main(String[] args) {
+         Scanner sc=new Scanner(System.in);
+        String input = sc.nextLine();
+
+        int result = fixTheFormula(input);
+        System.out.println(result); 
+    }
+}
+
